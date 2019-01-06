@@ -5,7 +5,6 @@ An Elixir playground based on the Todo application built in [Elixir in Action](h
 # More things to do
 
 - Find how a service should be exposed in K8S
-- Intercept SIGTERM (when a pod is shutdown)
 - Write real tests
 - Typespecs
 - Interact with a DB deployed with K8S, find how to have a nice dev workflow

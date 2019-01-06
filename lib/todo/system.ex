@@ -21,7 +21,8 @@ defmodule Todo.System do
         Todo.Metrics,
         {Todo.Database, {@db_folder, @db_max_workers}},
         Todo.Cache,
-        {Todo.Web, {http_port}}
+        {Todo.Web, {http_port}},
+        Todo.Shutdown
       ],
       strategy: :one_for_one
     )
