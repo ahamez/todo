@@ -1,0 +1,22 @@
+# Some commands
+
+minikube start
+eval $(minikube docker-env)
+minikube  dashboard&
+make build
+kubectl create -f k8s/service-headless.yaml
+kubectl create -f k8s/deployment.yaml
+# or
+kubectl run todo --image=todo:0.1.0 --image-pull-policy=Never
+kubectl get services
+kubectl expose deployment todo --type=LoadBalancer --port=8080
+minikube  service todo --url
+kubectl get deploy
+kubectl get po
+kubectl scale deploy todo --replicas=3
+kubectl delete po todo-7f779dccb9-6k9pz
+
+
+# Test service
+curl $(minikube service todo --url)"/entries?list=foo&date=2018-12-31"
+curl -d "" $(minikube service todo --url)"/add_entry?list=foo&date=2018-12-31&text=qsdqsdqsd"
