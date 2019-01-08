@@ -11,8 +11,7 @@ spec:
     spec:
       containers:
         - name: todo
-          image: todo:latest
-          imagePullPolicy: Never
+          image: todo:0.1.0-37ce876-20190108145822
           env:
             - name: MY_POD_IP
               valueFrom:
