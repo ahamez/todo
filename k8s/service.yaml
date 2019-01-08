@@ -1,0 +1,27 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: todo-headless
+spec:
+  selector:
+    app: todo
+  ports:
+    - protocol: TCP
+      port: 9090
+      targetPort: 9090
+  clusterIP: None
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: todo
+spec:
+  selector:
+    app: todo
+  ports:
+  - protocol: TCP
+    port: 9090
+    targetPort: 9090
+  type: LoadBalancer
