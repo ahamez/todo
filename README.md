@@ -14,3 +14,8 @@ An Elixir playground based on the Todo application built in [Elixir in Action](h
 - https://www.manning.com/books/elixir-in-action-second-edition
 - https://engineering.dollarshaveclub.com/elixir-otp-applications-on-kubernetes-9944636b8609
 - https://hexdocs.pm/distillery/home.html
+- https://medium.com/polyscribe/a-complete-guide-to-deploying-elixir-phoenix-applications-on-kubernetes-part-3-deploying-to-bd5b1fcbef87
+
+# Related
+
+- On Mnesia and CAP: https://medium.com/@jlouis666/mnesia-and-cap-d2673a92850
