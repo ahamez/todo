@@ -1,45 +1,21 @@
 defmodule Todo.Database do
-  require Logger
-
-  def store(key, data) do
-    {_results, bad_nodes} =
-      :rpc.multicall(
-        __MODULE__,
-        :store_local,
-        [key, data],
-        :timer.seconds(3)
-      )
-
-    Enum.each(bad_nodes, &Logger.info("Store failed on node #{&1}"))
+  def child_spec(redis_server) do
+    Supervisor.child_spec({Redix, name: :redix}, id: :redix)
   end
 
-  def store_local(key, data) do
-    :poolboy.transaction(
-      __MODULE__,
-      fn worker_pid ->
-        Todo.DatabaseWorker.store(worker_pid, key, data)
-      end
-    )
+  def store(key, data) do
+    key = :erlang.term_to_binary(key)
+    data = :erlang.term_to_binary(data)
+    {:ok, "OK"} = Redix.command(:redix, ["SET", key, data])
   end
 
   def get(key) do
-    :poolboy.transaction(
-      __MODULE__,
-      fn worker_pid ->
-        Todo.DatabaseWorker.get(worker_pid, key)
-      end
-    )
-  end
+    key = :erlang.term_to_binary(key)
 
-  def child_spec({db_folder, db_max_workers}) do
-    :poolboy.child_spec(
-      __MODULE__,
-      [
-        name: {:local, __MODULE__},
-        worker_module: Todo.DatabaseWorker,
-        size: db_max_workers
-      ],
-      [db_folder]
-    )
+    case Redix.command(:redix, ["GET", key]) do
+      {:ok, nil} -> nil
+      {:ok, data} -> :erlang.binary_to_term(data)
+      _ -> nil
+    end
   end
 end

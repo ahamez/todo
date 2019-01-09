@@ -8,6 +8,7 @@ defmodule Todo.System do
     Logger.info("#{Application.fetch_env!(:todo, :foo)}")
 
     http_port = Application.fetch_env!(:todo, :http_port)
+    redis_server = Application.fetch_env!(:todo, :redis_server)
 
     File.mkdir_p!(@db_folder)
 
@@ -19,7 +20,7 @@ defmodule Todo.System do
       [
         {Cluster.Supervisor, [topologies, [name: Todo.ClusterSupervisor]]},
         Todo.Metrics,
-        {Todo.Database, {@db_folder, @db_max_workers}},
+        {Todo.Database, redis_server},
         Todo.ServerCache,
         {Todo.Web, {http_port}},
         Todo.Shutdown

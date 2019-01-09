@@ -27,7 +27,8 @@ defmodule Todo.MixProject do
       {:libcluster, "~> 3.0"},
       {:plug, "~> 1.4"},
       {:plug_cowboy, "~> 1.0"},
-      {:poolboy, "~> 1.5"}
+      {:poolboy, "~> 1.5"},
+      {:redix, "~> 0.9"}
     ]
   end
 end
