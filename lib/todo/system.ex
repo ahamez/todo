@@ -20,7 +20,7 @@ defmodule Todo.System do
         {Cluster.Supervisor, [topologies, [name: Todo.ClusterSupervisor]]},
         Todo.Metrics,
         {Todo.Database, {@db_folder, @db_max_workers}},
-        Todo.Cache,
+        Todo.ServerCache,
         {Todo.Web, {http_port}},
         Todo.Shutdown
       ],

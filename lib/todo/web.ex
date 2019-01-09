@@ -25,7 +25,7 @@ defmodule Todo.Web do
     text = Map.fetch!(conn.params, "text")
 
     list
-    |> Todo.Cache.server_process()
+    |> Todo.ServerCache.server_process()
     |> Todo.Server.add_entry(date, text)
 
     conn
@@ -41,7 +41,7 @@ defmodule Todo.Web do
 
     entries =
       list
-      |> Todo.Cache.server_process()
+      |> Todo.ServerCache.server_process()
       |> Todo.Server.entries(date)
       |> Enum.join("\n")
 

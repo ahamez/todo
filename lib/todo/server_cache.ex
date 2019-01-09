@@ -1,4 +1,4 @@
-defmodule Todo.Cache do
+defmodule Todo.ServerCache do
   require Logger
 
   def start_link() do
