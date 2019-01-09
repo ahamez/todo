@@ -6,6 +6,7 @@ defmodule Todo.System do
 
   def start_link() do
     Logger.info("#{Application.fetch_env!(:todo, :foo)}")
+    Logger.info("redis_server = #{Application.fetch_env!(:todo, :redis_server)}")
 
     http_port = Application.fetch_env!(:todo, :http_port)
     redis_server = Application.fetch_env!(:todo, :redis_server)
