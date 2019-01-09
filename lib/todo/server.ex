@@ -2,7 +2,7 @@ defmodule Todo.Server do
   require Logger
   use GenServer, restart: :temporary
 
-  @expiry_timeout :timer.seconds(100)
+  @expiry_timeout :timer.seconds(10)
 
   defmodule State do
     defstruct name: nil,
@@ -52,7 +52,7 @@ defmodule Todo.Server do
 
   @impl GenServer
   def handle_info(:timeout, state) do
-    # Logger.debug "#{__MODULE__} Stopping #{state.name} after #{@expiry_timeout} ms"
+    Logger.debug("#{__MODULE__} Stopping #{state.name} after #{@expiry_timeout} ms")
 
     {:stop, :normal, state}
   end
