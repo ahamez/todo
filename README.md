@@ -19,3 +19,8 @@ An Elixir playground based on the Todo application built in [Elixir in Action](h
 # Related
 
 - On Mnesia and CAP: https://medium.com/@jlouis666/mnesia-and-cap-d2673a92850
+
+# Some commands
+
+Launch locally
+`NODES="node1@127.0.0.1 node2@127.0.0.1 node3@127.0.0.1" iex --erl "-todo http_port 9091" --name node1@127.0.0.1 -S mix`
