@@ -5,8 +5,9 @@ defmodule Todo.System do
   @db_max_workers 3
 
   def start_link() do
-    Logger.info("#{Application.fetch_env!(:todo, :foo)}")
+    Logger.info("foo = #{Application.fetch_env!(:todo, :foo)}")
     Logger.info("redis_server = #{Application.fetch_env!(:todo, :redis_server)}")
+    Logger.info("cookie: #{inspect(Node.get_cookie())}")
 
     http_port = Application.fetch_env!(:todo, :http_port)
     redis_server = Application.fetch_env!(:todo, :redis_server)
@@ -15,7 +16,6 @@ defmodule Todo.System do
 
     topologies = Application.get_env(:libcluster, :topologies)
 
-    Logger.info("Cookie: #{inspect(Node.get_cookie())}")
 
     Supervisor.start_link(
       [
