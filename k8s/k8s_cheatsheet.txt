@@ -11,8 +11,8 @@ kubectl create -f k8s/deployment.yaml
 kubectl apply -f k8s/deployment.yaml
 kubectl apply -f k8s/service.yaml
 
-# or
 kubectl run todo --image=todo:0.1.0 --image-pull-policy=Never
+
 kubectl get services
 kubectl expose deployment todo --type=LoadBalancer --port=8080
 minikube  service todo --url
@@ -22,6 +22,8 @@ kubectl scale deploy todo --replicas=3
 kubectl delete service todo
 kubectl delete deployment todo
 kubectl delete po todo-7f779dccb9-6k9pz
+
+watch kubectl get po -l app=todo
 
 # Test service
 curl $(minikube service todo --url)"/entries?list=foo&date=2018-12-31"
@@ -37,4 +39,4 @@ curl 'http://todo-headless:9090/entries?list=foo&date=2018-12-31'
 # Helm
 helm init
 helm repo update
-helm install stable/redis
+helm install stable/redis --name redis
