@@ -1,15 +1,11 @@
 defmodule Todo.System do
   require Logger
 
-  @db_folder ".persistence"
-  @db_max_workers 3
-
   def start_link() do
     http_port = Application.fetch_env!(:todo, :http_port)
     redis_server = Application.fetch_env!(:todo, :redis_server)
     redis_password = Application.fetch_env!(:todo, :redis_password)
 
-    File.mkdir_p!(@db_folder)
     Logger.info("foo = #{Application.fetch_env!(:todo, :foo)}")
     Logger.info("cookie: #{inspect(Node.get_cookie())}")
     Logger.info("redis_server = #{redis_server}")
