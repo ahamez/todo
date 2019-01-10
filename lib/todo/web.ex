@@ -5,7 +5,7 @@ defmodule Todo.Web do
   plug(:match)
   plug(:dispatch)
 
-  def child_spec({http_port}) do
+  def child_spec(http_port) do
     Logger.info("Will listen on #{http_port}")
 
     Plug.Adapters.Cowboy.child_spec(

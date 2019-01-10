@@ -2,16 +2,15 @@ defmodule Todo.System do
   require Logger
 
   def start_link() do
-    http_port = Application.fetch_env!(:todo, :http_port)
+    http_port = get_port(Application.fetch_env!(:todo, :http_port))
     redis_server = Application.fetch_env!(:todo, :redis_server)
     redis_password = Application.fetch_env!(:todo, :redis_password)
+    topologies = Application.get_env(:libcluster, :topologies)
 
-    Logger.info("foo = #{Application.fetch_env!(:todo, :foo)}")
     Logger.info("cookie: #{inspect(Node.get_cookie())}")
+    Logger.info("http_port: #{inspect(http_port)}")
     Logger.info("redis_server = #{redis_server}")
     Logger.info("redis_password = #{redis_password}")
-
-    topologies = Application.get_env(:libcluster, :topologies)
 
     Supervisor.start_link(
       [
@@ -19,10 +18,13 @@ defmodule Todo.System do
         Todo.Metrics,
         {Todo.Database, {redis_server, redis_password}},
         Todo.ServerCache,
-        {Todo.Web, {http_port}},
+        {Todo.Web, http_port},
         Todo.Shutdown
       ],
       strategy: :one_for_one
     )
   end
+
+  defp get_port(port) when is_binary(port), do: String.to_integer(port)
+  defp get_port(port) when is_integer(port), do: port
 end

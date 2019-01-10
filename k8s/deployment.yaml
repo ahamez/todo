@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: todo
-          image: todo:0.1.0-dcff8d8-20190110102738
+          image: todo:0.1.0-4e6b0a9-20190110192208
           env:
             - name: MY_POD_IP
               valueFrom:
@@ -19,3 +19,9 @@ spec:
                   fieldPath: status.podIP
             - name: NODE_COOKIE
               value: "FOOFOOFOO"
+            - name: REDIS_SERVER
+              value: "redis-master"
+            - name: REDIS_PASSWORD
+              value: "MBHoiesjxM"
+            - name: HTTP_PORT
+              value: "9090"
