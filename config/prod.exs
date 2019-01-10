@@ -1,9 +1,9 @@
 use Mix.Config
 
 config :todo,
-  http_port: "${HTTP_PORT}",
-  redis_server: "${REDIS_SERVER}",
-  redis_password: "${REDIS_PASSWORD}"
+  http_port: nil,
+  redis_server: nil,
+  redis_password: nil
 
 config :libcluster,
   topologies: [

@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: todo
-          image: todo:0.1.0-4e6b0a9-20190110192208
+          image: todo:0.1.0-0712236-20190110193257
           env:
             - name: MY_POD_IP
               valueFrom:

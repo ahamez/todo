@@ -2,7 +2,7 @@ defmodule Todo.System do
   require Logger
 
   def start_link() do
-    http_port = get_port(Application.fetch_env!(:todo, :http_port))
+    http_port = Application.fetch_env!(:todo, :http_port)
     redis_server = Application.fetch_env!(:todo, :redis_server)
     redis_password = Application.fetch_env!(:todo, :redis_password)
     topologies = Application.get_env(:libcluster, :topologies)
@@ -24,7 +24,4 @@ defmodule Todo.System do
       strategy: :one_for_one
     )
   end
-
-  defp get_port(port) when is_binary(port), do: String.to_integer(port)
-  defp get_port(port) when is_integer(port), do: port
 end
