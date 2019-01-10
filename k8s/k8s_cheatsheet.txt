@@ -30,7 +30,7 @@ curl -d "" $(minikube service todo --url)"/add_entry?list=foo&date=2018-12-31&te
 # Run an Ubuntu inside the cluster
 kubectl run -it --image ubuntu ubuntu --command /bin/bash
 apt update
-apt install curl dnsutils
+apt install curl dnsutils iputils-ping
 dig todo-headless.default.svc.cluster.local
 curl 'http://todo-headless:9090/entries?list=foo&date=2018-12-31'
 
