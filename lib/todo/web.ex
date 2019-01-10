@@ -30,7 +30,7 @@ defmodule Todo.Web do
 
     conn
     |> Plug.Conn.put_resp_content_type("text/plain")
-    |> Plug.Conn.send_resp(200, "#{Node.self()} #{inspect(Node.list())}\n OK")
+    |> Plug.Conn.send_resp(200, "#{Node.self()} #{inspect(Node.list())}\nOK")
   end
 
   get "/entries" do
@@ -47,6 +47,6 @@ defmodule Todo.Web do
 
     conn
     |> Plug.Conn.put_resp_content_type("text/plain")
-    |> Plug.Conn.send_resp(200, "#{Node.self()} #{inspect(Node.list())}\n #{entries}")
+    |> Plug.Conn.send_resp(200, "#{Node.self()} #{inspect(Node.list())}\n#{entries}")
   end
 end
