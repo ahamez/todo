@@ -1,7 +1,8 @@
 use Mix.Config
 
 config :todo,
-  redis_server: "redis://localhost:6379"
+  redis_server: "localhost",
+  redis_password: nil
 
 config :libcluster,
   topologies: [

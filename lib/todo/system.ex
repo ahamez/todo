@@ -5,23 +5,23 @@ defmodule Todo.System do
   @db_max_workers 3
 
   def start_link() do
-    Logger.info("foo = #{Application.fetch_env!(:todo, :foo)}")
-    Logger.info("redis_server = #{Application.fetch_env!(:todo, :redis_server)}")
-    Logger.info("cookie: #{inspect(Node.get_cookie())}")
-
     http_port = Application.fetch_env!(:todo, :http_port)
     redis_server = Application.fetch_env!(:todo, :redis_server)
+    redis_password = Application.fetch_env!(:todo, :redis_password)
 
     File.mkdir_p!(@db_folder)
+    Logger.info("foo = #{Application.fetch_env!(:todo, :foo)}")
+    Logger.info("cookie: #{inspect(Node.get_cookie())}")
+    Logger.info("redis_server = #{redis_server}")
+    Logger.info("redis_password = #{redis_password}")
 
     topologies = Application.get_env(:libcluster, :topologies)
-
 
     Supervisor.start_link(
       [
         {Cluster.Supervisor, [topologies, [name: Todo.ClusterSupervisor]]},
         Todo.Metrics,
-        {Todo.Database, redis_server},
+        {Todo.Database, {redis_server, redis_password}},
         Todo.ServerCache,
         {Todo.Web, {http_port}},
         Todo.Shutdown

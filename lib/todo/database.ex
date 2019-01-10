@@ -1,6 +1,10 @@
 defmodule Todo.Database do
-  def child_spec(redis_server) do
-    Supervisor.child_spec({Redix, name: :redix}, id: :redix)
+  def child_spec({redis_server, redis_password}) do
+
+    Supervisor.child_spec({
+      Redix, name: :redix, host: redis_server, password: redis_password},
+      id: :redix
+    )
   end
 
   def store(key, data) do
